@@ -13,7 +13,7 @@ class IndexController extends Controller
     //前台首页
     public function index(){
         //获取二级类和相关文章
-        $cate_arts = Cate::where('pid','<>','0')->with('article')->get();
+        $cate_arts = Cate::where('pid','<>','0')->with('article')->paginate(2);
         return view('home.index',compact('cate_arts'));
     }
 
@@ -74,7 +74,7 @@ class IndexController extends Controller
     public function logout(){
         //清空session
         session()->flush();
-        //跳转至登录页面
+        //跳转至首页
         return redirect('/');
     }
 }

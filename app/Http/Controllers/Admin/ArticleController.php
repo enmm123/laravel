@@ -69,6 +69,20 @@ class ArticleController extends Controller
     {
         $input = $request->except('_token','photo');
 //        dd($input);
+        if(empty($request->input('art_content'))){
+            $data=[
+                'status'=>2,
+                'message'=>'请输入内容'
+            ];
+            return $data;
+        }
+        if($request->input('cate_id') == 0){
+            $data=[
+                'status'=>3,
+                'message'=>'请选择分类'
+            ];
+            return $data;
+        }
         $res = Article::create($input);
         if($res){
             $data = [
@@ -119,10 +133,26 @@ class ArticleController extends Controller
     {
         //1.根据id获取要修改的记录
         $article = Article::find($id);
+        if(empty($request->input('art_content'))){
+            $data=[
+                'status'=>2,
+                'message'=>'请输入内容'
+            ];
+            return $data;
+        }
+        if($request->input('cate_id') == 0){
+            $data=[
+                'status'=>3,
+                'message'=>'请选择分类'
+            ];
+            return $data;
+        }
+        if(!empty($request->input('art_thumb'))){
+            $article->art_thumb = $request->input('art_thumb');
+        }
         $article->cate_id = $request->input('cate_id');
         $article->art_title = $request->input('art_title');
         $article->art_editor = $request->input('art_editor');
-        $article->art_thumb = $request->input('art_thumb');
         $article->art_description = $request->input('art_description');
         $article->art_content = $request->input('art_content');
         $res = $article->save();

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class LoginController extends Controller
 {
     public function index(){
+        session(['link' => url()->previous()]);
         return view('home.login');
     }
 
@@ -50,8 +51,9 @@ class LoginController extends Controller
         //保存用户信息到session
         session()->put('user',$user);
 
-        //跳转到首页
-        return redirect('/');
+        //跳转到上一页
+//        return redirect('/');
+        return redirect(session('link'));
 
 
     }

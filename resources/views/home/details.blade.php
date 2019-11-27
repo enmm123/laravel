@@ -12,7 +12,7 @@
                     <h3>{{$article->art_title}}</h3>
                     <p class="cont-info"><span class="types">{{$article->name}}</span></p>
                   </div>
-                  <p>{{$article->art_content}}</p>
+                  <p>{!! $article->art_content !!}</p>
                   <img src="{{$article->art_thumb}}">
                   <div class="btn-box">
                     <button class="layui-btn layui-btn-primary">上一篇</button>
@@ -34,7 +34,7 @@
                   </form>
                     @if(empty(session()->get('user')))
                         <div class="layui-input-block" style="text-align: right;">
-                        <button class="layui-btn definite" style="cursor: default">请先登录</button>
+                        <button class="layui-btn definite"><a href="{{url('log')}}">请先登录</a></button>
                         </div>
                     @else
                         <div class="layui-input-block" style="text-align: right;">
@@ -54,13 +54,16 @@
                       <p class="tit"><span class="name">{{$v->username}}</span></p>
                       <p class="ct">{{$v->comment}}</p>
                   </div>
+                  <p style="float: right;color: #666;font-size: 12px">{{$v->time}}</p>
                 </div>
                 @endforeach
               </div>
           </div>
         </div>
       </div>
-      <div id="demo" style="text-align: center;"></div>
+        <div class="page">
+            {{$comment->render()}}
+        </div>
     </div>
   </div>
   <script>

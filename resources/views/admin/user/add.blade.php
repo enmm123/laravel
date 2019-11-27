@@ -56,7 +56,7 @@
                 form.verify({
                     nikename: function(value) {
                         if (value.length < 4) {
-                            return '昵称至少得4个字符啊';
+                            return '昵称至少得4个字符';
                         }
                     },
                     pass: [/(.+){6,12}$/, '密码必须6到12位'],

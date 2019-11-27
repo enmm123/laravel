@@ -70,10 +70,10 @@
                                 @if(!empty($v->article))
                                 @foreach($v->article as $m=>$n)
                                 <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                                    <div class="img"><img src="{{$n->art_thumb}}" alt=""></div>
+                                    <div class="img"><img src="{{$n->art_thumb}}" height="280px"></div>
                                 </div>
                                 <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                                    <div class="item-cont">
+                                    <div class="item-cont" style="height: 270px">
                                         <h3><a href="{{url('/detail/'.$n->id)}}">{{$n->art_title}}</a></h3>
                                         <h5>{{$v->name}}</h5>
                                         <p><a href="{{url('/detail/'.$n->id)}}">{!!$n->art_content!!}</a></p>
@@ -98,7 +98,9 @@
                     </div>
                     @endforeach
                 </div>
-                <div id="demo" style="text-align: center;"></div>
+                <div class="page">
+                    {{$cate_arts->render()}}
+                </div>
             </div>
         </div>
     <script>

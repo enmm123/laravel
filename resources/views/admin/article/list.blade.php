@@ -45,7 +45,7 @@
                                     <td>{{$v->art_editor}}</td>
                                     <td><img src="{{url($v->art_thumb)}}"></td>
                                     <td>{{$v->art_description}}</td>
-                                    <td>{!!$v->art_content!!}</td>
+                                    <td style="width: 552px;overflow: hidden;text-overflow: ellipsis;">{!!$v->art_content!!}</td>
                                     <td class="td-manage">
                                       <a title="编辑"  onclick="xadmin.open('编辑','{{url('admin/article/'.$v->id.'/edit')}}',600,400)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
@@ -55,8 +55,7 @@
                                       </a>
                                     </td>
                                   </tr>
-
-                                    @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

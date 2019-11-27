@@ -32,14 +32,14 @@
                         <label for="L_email" class="layui-form-label">
                             <span class="x-red">*</span>文章标题</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_username" name="art_title" required="" lay-verify="nikename" autocomplete="off" class="layui-input">
+                            <input type="text" id="L_username" name="art_title" required="" lay-verify="title" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label for="L_pass" class="layui-form-label">
                             <span class="x-red">*</span>编辑</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="L_pass" name="art_editor" required="" lay-verify="pass" autocomplete="off" class="layui-input">
+                            <input type="text" id="L_pass" name="art_editor" required="" lay-verify="auther" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -48,7 +48,7 @@
                         <div class="layui-input-inline">
                             <input type="hidden" id="img1" class="hidden" name="art_thumb">
                             <button type="button" class="layui-btn" id="test1">上传图片</button>
-                            <input type="file" name="photo" id="photo_upload" style="display: none;">
+                            <input type="file" name="photo" id="photo_upload" style="display: none;" lay-verify="photo">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -60,7 +60,7 @@
                         <label for="L_repass" class="layui-form-label">
                             <span class="x-red">*</span>描述</label>
                         <div class="layui-input-inline">
-                            <textarea rows="10" cols="50" name="art_description"></textarea>
+                            <textarea rows="10" cols="50" name="art_description" lay-verify="describe"></textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -93,6 +93,30 @@
                 var form = layui.form,
                 layer = layui.layer;
                 var upload = layui.upload;
+
+                //自定义验证规则
+                form.verify({
+                    title: function(value) {
+                        if (value.length < 1) {
+                            return '请输入标题';
+                        }
+                    },
+                    auther: function(value) {
+                        if (value.length < 1) {
+                            return '请输入作者';
+                        }
+                    },
+                    describe: function(value) {
+                        if (value.length < 1) {
+                            return '请添加描述';
+                        }
+                    },
+                    photo: function(value) {
+                        if (value.length < 1) {
+                            return '请上传图片';
+                        }
+                    },
+                });
 
                 $('#test1').on('click',function () {
                     $('#photo_upload').trigger('click');
