@@ -12,7 +12,7 @@ class DetailController extends Controller
     public function index($id){
         $article = Article::join('cate','article.cate_id','=','cate.id')->select('article.*','cate.name')->find($id);
 //        dd($article);
-        $comment = Comment::join('user','comments.uid','=','user.id')->join('article','comments.art_id','=','article.id')->select('comments.*','user.username')->paginate(5);
+        $comment = Comment::join('user','comments.uid','=','user.id')->join('article','comments.art_id','=','article.id')->where('comments.art_id','=',$id)->select('comments.*','user.username')->paginate(5);
         return view('home.details',compact('article','comment'));
     }
 

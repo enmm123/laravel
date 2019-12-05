@@ -7,18 +7,21 @@ use App\Model\Cate;
 use App\Model\Collect;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
     //前台首页
     public function index(){
         //获取二级类和相关文章
-        $cate_arts = Cate::where('pid','<>','0')->with('article')->paginate(2);
+        $cate_arts = Article::join('cate','article.cate_id','=','cate.id')->select('article.*','cate.name')->paginate(3);
+//        $cate_arts = Cate::where('pid','<>','0')->with('article')->get();
         return view('home.index',compact('cate_arts'));
     }
-
+    //文章分类
     public function lists($id){
-        return view('home.index',compact('id'));
+        $cate_arts = Article::join('cate','article.cate_id','=','cate.id')->where('cate_id','=',$id)->select('article.*','cate.name')->paginate(3);
+        return view('home.list',compact('cate_arts'));
     }
     public function detail($id){
         $article = Article::find($id);

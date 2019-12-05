@@ -61,7 +61,9 @@ class UserController extends Controller
                 }
             })
             ->paginate($request->input('num')?$request->input('num'):5);
-//        $user = User::paginate(5);
+//        foreach ($user['id'] as $k=>$v){
+//            $user['id']['aaa'][$k] = 123456;
+//        }
         return view('admin.user.list',compact('user','request'));
     }
 
