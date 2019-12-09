@@ -101,7 +101,7 @@
                                     <div class="item-cont" style="height: 270px">
                                         <h3><a href="{{url('/detail/'.$v->id)}}">{{$v->art_title}}</a></h3>
                                         <h5>{{$v->name}}</h5>
-                                        <p><a href="{{url('/detail/'.$v->id)}}">{!!$v->art_content!!}</a></p>
+                                        <p><a href="{{url('/detail/'.$v->id)}}">{!!$v->art_description!!}</a></p>
                                         @if(empty(session()->get('user')))
                                         <div class="postlist-meta-collect collect collect-no" style="float:right;cursor: default" title="必须登录才能收藏" artid="{{$v->id}}">
                                             <i class="fa fa-star"></i>&nbsp;

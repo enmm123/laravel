@@ -75,7 +75,12 @@
                                     <td>{{$v->username}}</td>
                                     <td>{{$v->email}}</td>
                                     <td class="td-status">
-                                      <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+                                        @if($v->status == 0)
+                                            <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop(this,{{$v->id}})" title="点击禁用">已启用</span>
+                                        @else
+                                            <span class="layui-btn layui-btn-danger layui-btn-mini" onclick="member_stop(this,{{$v->id}})" title="点击启用">已禁用</span>
+                                        @endif
+                                    </td>
                                     <td class="td-manage">
                                       <a title="授予角色" href="{{url('admin/user/auth/'.$v->id)}}">
                                         <i class="layui-icon">&#xe608;</i>
@@ -136,28 +141,35 @@
 
       });
 
-       /*用户-停用*/
+       /*用户-禁用-启用*/
       function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
-
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
+          if($(obj).attr('title') == '点击禁用'){
+              layer.confirm('确认要禁用吗？',function(index){
+                  $.get('/admin/user/stop/'+id,function (data) {
+                      if(data.status == 0){
+                          $(obj).removeClass('layui-btn layui-btn-normal layui-btn-mini').addClass('layui-btn layui-btn-danger layui-btn-mini');
+                          $(obj).attr('title','点击启用');
+                          $(obj).html('已禁用');
+                          layer.msg(data.message,{icon:6,time:1000})
+                      }else{
+                          layer.msg(data.message,{icon:5,time:1000})
+                      }
+                  })
+              });
+          }else{
+              layer.confirm('确认要启用吗？',function(index){
+                  $.get('/admin/user/open/'+id,function (data) {
+                      if(data.status == 0){
+                          $(obj).removeClass('layui-btn layui-btn-danger layui-btn-mini').addClass('layui-btn layui-btn-normal layui-btn-mini');
+                          $(obj).attr('title','点击禁用');
+                          $(obj).html('已启用');
+                          layer.msg(data.message,{icon:6,time:1000})
+                      }else{
+                          layer.msg(data.message,{icon:5,time:1000})
+                      }
+                  })
+              });
+          }
       }
 
       /*用户-删除*/

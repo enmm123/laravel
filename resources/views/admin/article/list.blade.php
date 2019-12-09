@@ -34,6 +34,7 @@
                                     <th>缩略图</th>
                                     <th>描述</th>
                                     <th>内容</th>
+                                    <th>状态</th>
                                     <th>编辑</th>
                                   </tr>
                                 </thead>
@@ -44,8 +45,15 @@
                                     <td>{{$v->art_title}}</td>
                                     <td>{{$v->art_editor}}</td>
                                     <td><img src="{{url($v->art_thumb)}}"></td>
-                                    <td>{{$v->art_description}}</td>
-                                    <td style="width: 552px;overflow: hidden;text-overflow: ellipsis;">{!!$v->art_content!!}</td>
+                                    <td><div style="width: 400px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$v->art_description}}</div></td>
+                                    <td><a href="{{url('/detail/'.$v->id)}}">点击查看</a></td>
+                                    <td>
+                                        @if($v->art_status == 0)
+                                            <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop(this,{{$v->id}})" title="点击禁用">已启用</span>
+                                        @else
+                                            <span class="layui-btn layui-btn-danger layui-btn-mini" onclick="member_stop(this,{{$v->id}})" title="点击启用">已禁用</span>
+                                        @endif
+                                    </td>
                                     <td class="td-manage">
                                       <a title="编辑"  onclick="xadmin.open('编辑','{{url('admin/article/'.$v->id.'/edit')}}',600,400)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
@@ -94,22 +102,38 @@
 
       });
 
-      function changeOrder(obj,id) {
-          var order_id = $(obj).val();
-          $.post('/admin/cate/changeorder',{'_token':"{{csrf_token()}}","id":id,"cate_order":order_id,function(odata){
-                  // console.log(odata);
-                  location.reload();
-                  // if(odata.status == 0){
-                  //     layer.msg(odata.message,{icon:6},function () {
-                  //         location.reload();
-                  //     });
-                  // }else{
-                  //     layer.msg(odata.message,{icon:5})
-                  // }
-              }})
+      /*文章-禁用-启用*/
+      function member_stop(obj,id){
+          if($(obj).attr('title') == '点击禁用'){
+              layer.confirm('确认要禁用吗？',function(index){
+                  $.get('/admin/article/stop/'+id,function (data) {
+                      if(data.status == 0){
+                          $(obj).removeClass('layui-btn layui-btn-normal layui-btn-mini').addClass('layui-btn layui-btn-danger layui-btn-mini');
+                          $(obj).attr('title','点击启用');
+                          $(obj).html('已禁用');
+                          layer.msg(data.message,{icon:6,time:1000})
+                      }else{
+                          layer.msg(data.message,{icon:5,time:1000})
+                      }
+                  })
+              });
+          }else{
+              layer.confirm('确认要启用吗？',function(index){
+                  $.get('/admin/article/open/'+id,function (data) {
+                      if(data.status == 0){
+                          $(obj).removeClass('layui-btn layui-btn-danger layui-btn-mini').addClass('layui-btn layui-btn-normal layui-btn-mini');
+                          $(obj).attr('title','点击禁用');
+                          $(obj).html('已启用');
+                          layer.msg(data.message,{icon:6,time:1000})
+                      }else{
+                          layer.msg(data.message,{icon:5,time:1000})
+                      }
+                  })
+              });
+          }
       }
 
-      /*用户-删除*/
+      /*文章-删除*/
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
               $.post('/admin/article/'+id,{"_method":"delete","_token":"{{csrf_token()}}"},function (data) {

@@ -58,6 +58,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['isLogin','h
     //用户管理模块路由
     //删除所有用户
     Route::get('user/del', 'UserController@delAll');
+    //禁用用户
+    Route::get('user/stop/{id}', 'UserController@stop');
+    //启用用户
+    Route::get('user/open/{id}', 'UserController@open');
     //授予角色
     Route::get('user/auth/{id}','UserController@auth');
     Route::post('user/doauth','UserController@doAuth');
@@ -78,6 +82,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['isLogin','h
     Route::resource('cate','CateController');
 
     //文章模块路由
+    //禁用文章
+    Route::get('article/stop/{id}', 'ArticleController@stop');
+    //启用文章
+    Route::get('article/open/{id}', 'ArticleController@open');
     //上传路由
     Route::post('article/upload','ArticleController@upload');
     Route::resource('article','ArticleController');

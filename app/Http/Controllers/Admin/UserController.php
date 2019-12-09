@@ -213,4 +213,40 @@ class UserController extends Controller
         }
         return $data;
     }
+    //禁用用户
+    public function stop($id){
+        $user = User::find($id);
+        $user->status = '1';
+        $res = $user->save();
+        if($res){
+            $data=[
+                'status'=>0,
+                'message'=>'操作成功'
+            ];
+        }else{
+            $data=[
+                'status'=>1,
+                'message'=>'操作失败'
+            ];
+        }
+        return $data;
+    }
+    //启用用户
+    public function open($id){
+        $user = User::find($id);
+        $user->status = '0';
+        $res = $user->save();
+        if($res){
+            $data=[
+                'status'=>0,
+                'message'=>'操作成功'
+            ];
+        }else{
+            $data=[
+                'status'=>1,
+                'message'=>'操作失败'
+            ];
+        }
+        return $data;
+    }
 }

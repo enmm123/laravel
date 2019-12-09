@@ -193,4 +193,40 @@ class ArticleController extends Controller
         }
         return $data;
     }
+    //禁用文章
+    public function stop($id){
+        $article = Article::find($id);
+        $article->art_status = '1';
+        $res = $article->save();
+        if($res){
+            $data=[
+                'status'=>0,
+                'message'=>'操作成功'
+            ];
+        }else{
+            $data=[
+                'status'=>1,
+                'message'=>'操作失败'
+            ];
+        }
+        return $data;
+    }
+    //启用文章
+    public function open($id){
+        $article = Article::find($id);
+        $article->art_status = '0';
+        $res = $article->save();
+        if($res){
+            $data=[
+                'status'=>0,
+                'message'=>'操作成功'
+            ];
+        }else{
+            $data=[
+                'status'=>1,
+                'message'=>'操作失败'
+            ];
+        }
+        return $data;
+    }
 }
