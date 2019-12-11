@@ -43,7 +43,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $article = Article::join('cate','article.cate_id','=','cate.id')->select('article.*','cate.name')->get();
+        $article = Article::join('cate','article.cate_id','=','cate.id')->select('article.*','cate.name')->paginate(5);
 //        dd($article);
         return view('admin.article.list',compact('article'));
     }
@@ -69,6 +69,8 @@ class ArticleController extends Controller
     {
         $input = $request->except('_token','photo');
 //        dd($input);
+        $time = date('Y-m-d H:i:s',time());
+        $input['time'] = $time;
         if(empty($request->input('art_content'))){
             $data=[
                 'status'=>2,
@@ -179,8 +181,12 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $article = Article::find($id);
+        $imgpath = $article['art_thumb'];
         $res = $article->delete();
         if($res){
+            $path = public_path('');
+            $path = str_replace('\\','/',$path);
+            unlink($path.'/'.$imgpath);
             $data=[
                 'status'=>0,
                 'message'=>'删除成功'

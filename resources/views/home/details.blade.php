@@ -10,7 +10,7 @@
                 <div class="article-cont">
                   <div class="title">
                     <h3>{{$article->art_title}}</h3>
-                    <p class="cont-info"><span class="types">{{$article->name}}</span></p>
+                      <p class="cont-info" style="color: #777;"><span style="margin-right: 30px">作者：{{$article->art_editor}}</span><span style="margin-right: 30px">{{$article->name}}</span><span style="margin-right: 30px">时间：{{$article->time}}</span>浏览量：{{$article->art_view}}</p>
                   </div>
                   <p>{!! $article->art_content !!}</p>
                   <img src="{{$article->art_thumb}}">

@@ -67,6 +67,11 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="layui-card-body ">
+                            <div class="page">
+                                {{$article->render()}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -23,10 +23,6 @@ class IndexController extends Controller
         $cate_arts = Article::join('cate','article.cate_id','=','cate.id')->where('cate_id','=',$id)->where('article.art_status','=','0')->select('article.*','cate.name')->paginate(3);
         return view('home.list',compact('cate_arts'));
     }
-    public function detail($id){
-        $article = Article::find($id);
-        return view('home.details',compact('article'));
-    }
     //文章收藏
     public function collect(Request $request)
     {

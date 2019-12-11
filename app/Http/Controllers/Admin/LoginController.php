@@ -58,9 +58,12 @@ class LoginController extends Controller
         if(md5($input['password'])!=$user->password){
             return redirect('admin/login')->with('errors','密码错误');
         }
+        if($user['status'] == 1){
+            return redirect('log')->with('errors','用户已被禁用');
+        }
 
         //保存用户信息到session
-        session()->put('user',$user);
+        session()->put('admin_user',$user);
 
         //跳转到后台首页
         return redirect('admin/index');

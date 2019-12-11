@@ -24,7 +24,7 @@ class HasRole
     {
         $route = $this->getCurrentAction()["controller"];
         //获取当前用户对应的权限组
-        $user = User::find(session()->get('user')->id);
+        $user = User::find(session()->get('admin_user')->id);
         //获取当前用户的角色
         $roles = $user->role;
         //根据角色寻找权限

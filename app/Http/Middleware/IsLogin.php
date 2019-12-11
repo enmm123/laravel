@@ -15,7 +15,7 @@ class IsLogin
      */
     public function handle($request, Closure $next)
     {
-        if(session()->get('user')){
+        if(session()->get('admin_user')){
             return $next($request);
         }else{
             return redirect('admin/login')->with('errors','请先登录');

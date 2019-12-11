@@ -12,13 +12,13 @@
         <a href="../">文章</a>
         <a href="{{url('leacots')}}">留言</a>
         <a href="{{url('photo')}}">相册</a>
-        <a href="{{url('about')}}">关于</a>
+        <a href="{{url('about')}}">个人中心</a>
     </div>
     <ul class="layui-nav header-down-nav">
         <li class="layui-nav-item"><a href="../" class="active">文章</a></li>
         <li class="layui-nav-item"><a href="{{url('leacots')}}">留言</a></li>
         <li class="layui-nav-item"><a href="{{url('photo')}}">相册</a></li>
-        <li class="layui-nav-item"><a href="{{url('about')}}">关于</a></li>
+        <li class="layui-nav-item"><a href="{{url('about')}}">个人中心</a></li>
     </ul>
     <p class="welcome-text">
         @if(empty(session()->get('user')))

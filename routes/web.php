@@ -30,6 +30,8 @@ Route::get('/logout', 'Home\IndexController@logout');
 
 //文章分类
 Route::get('/lists/{id}', 'Home\IndexController@lists');
+//文章浏览量
+Route::get('/view/{id}', 'Home\IndexController@view');
 //文章收藏
 Route::post('collect', 'Home\IndexController@collect');
 //文章详情

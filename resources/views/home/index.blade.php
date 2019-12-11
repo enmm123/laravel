@@ -101,14 +101,18 @@
                                     <div class="item-cont" style="height: 270px">
                                         <h3><a href="{{url('/detail/'.$v->id)}}">{{$v->art_title}}</a></h3>
                                         <h5>{{$v->name}}</h5>
-                                        <p><a href="{{url('/detail/'.$v->id)}}">{!!$v->art_description!!}</a></p>
+                                        <p>{!!$v->art_description!!}</p>
                                         @if(empty(session()->get('user')))
-                                        <div class="postlist-meta-collect collect collect-no" style="float:right;cursor: default" title="必须登录才能收藏" artid="{{$v->id}}">
+                                        <div class="postlist-meta-collect collect collect-no" style="float:right;cursor: default;color: #8796A3;" title="必须登录才能收藏" artid="{{$v->id}}">
+                                            <i class="fa fa-eye"></i>&nbsp;
+                                            <span>{{$v->art_view}}</span>&nbsp;&nbsp;
                                             <i class="fa fa-star"></i>&nbsp;
                                             <span>{{$v->art_collect}}</span>&nbsp;
                                         </div>
                                         @else
-                                        <div class="postlist-meta-collect collect collect-no" style="float:right;" title="点击收藏" uid="{{session()->get('user')->id}}" artid="{{$v->id}}">
+                                        <div class="postlist-meta-collect collect collect-no" style="float:right;color: #8796A3;" title="点击收藏" uid="{{session()->get('user')->id}}" artid="{{$v->id}}">
+                                            <i class="fa fa-eye"></i>&nbsp;
+                                            <span>{{$v->art_view}}</span>&nbsp;&nbsp;
                                             <i class="fa fa-star"></i>&nbsp;
                                             <span>{{$v->art_collect}}</span>&nbsp;
                                         </div>
