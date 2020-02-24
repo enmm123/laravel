@@ -154,8 +154,9 @@ class UserController extends Controller
     {
         //1.根据id获取要修改的记录
         $user = User::find($id);
+        $password = md5($request->input('pass'));
         $user->username = $request->input('username');
-        $user->password = $request->input('pass');
+        $user->password = $password;
         $user->email = $request->input('email');
         $res = $user->save();
         if($res){

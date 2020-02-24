@@ -28,38 +28,27 @@
                             <table class="layui-table layui-form">
                                 <thead>
                                   <tr>
-                                    <th>分类</th>
-                                    <th>文章标题</th>
-                                    <th>编辑</th>
-                                    <th>缩略图</th>
-                                    <th>描述</th>
-                                    <th>内容</th>
-                                    <th>发表时间</th>
+                                    <th>评论内容</th>
+                                    <th>评论者</th>
                                     <th>状态</th>
+                                    <th>时间</th>
                                     <th>编辑</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($article as $v)
+                                @foreach($comment as $v)
                                   <tr>
-                                    <td>{{$v->name}}</td>
-                                    <td>{{$v->art_title}}</td>
-                                    <td>{{$v->art_editor}}</td>
-                                    <td><img src="{{url($v->art_thumb)}}"></td>
-                                    <td><div style="width: 310px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$v->art_description}}</div></td>
-                                    <td><a href="{{url('/detail/'.$v->id)}}">点击查看</a></td>
-                                    <td><div style="width: 70px;">{{$v->time}}</div></td>
+                                    <td><div style="width: 350px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$v->comment}}</div></td>
+                                    <td>{{$v->username}}</td>
                                     <td>
-                                        @if($v->art_status == 0)
+                                        @if($v->status == 0)
                                             <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop(this,{{$v->id}})" title="点击禁用">已启用</span>
                                         @else
                                             <span class="layui-btn layui-btn-danger layui-btn-mini" onclick="member_stop(this,{{$v->id}})" title="点击启用">已禁用</span>
                                         @endif
                                     </td>
+                                    <td>{{$v->time}}</td>
                                     <td class="td-manage">
-                                      <a title="编辑"  onclick="xadmin.open('编辑','{{url('admin/article/'.$v->id.'/edit')}}',600,400)" href="javascript:;">
-                                        <i class="layui-icon">&#xe642;</i>
-                                      </a>
                                       <a title="删除" onclick="member_del(this,{{$v->id}})" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                       </a>
@@ -71,7 +60,7 @@
                         </div>
                         <div class="layui-card-body ">
                             <div class="page">
-                                {{$article->render()}}
+                                {{$comment->render()}}
                             </div>
                         </div>
                     </div>
@@ -94,8 +83,8 @@
             $('tbody input').prop('checked',false);
           }
           form.render('checkbox');
-        }); 
-        
+        });
+
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
@@ -113,7 +102,7 @@
       function member_stop(obj,id){
           if($(obj).attr('title') == '点击禁用'){
               layer.confirm('确认要禁用吗？',function(index){
-                  $.get('/admin/article/stop/'+id,function (data) {
+                  $.get('/admin/comment/stop/'+id,function (data) {
                       if(data.status == 0){
                           $(obj).removeClass('layui-btn layui-btn-normal layui-btn-mini').addClass('layui-btn layui-btn-danger layui-btn-mini');
                           $(obj).attr('title','点击启用');
@@ -126,7 +115,7 @@
               });
           }else{
               layer.confirm('确认要启用吗？',function(index){
-                  $.get('/admin/article/open/'+id,function (data) {
+                  $.get('/admin/comment/open/'+id,function (data) {
                       if(data.status == 0){
                           $(obj).removeClass('layui-btn layui-btn-danger layui-btn-mini').addClass('layui-btn layui-btn-normal layui-btn-mini');
                           $(obj).attr('title','点击禁用');
@@ -140,10 +129,10 @@
           }
       }
 
-      /*文章-删除*/
+      /*留言-删除*/
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
-              $.post('/admin/article/'+id,{"_method":"delete","_token":"{{csrf_token()}}"},function (data) {
+              $.post('/admin/comment/'+id,{"_method":"delete","_token":"{{csrf_token()}}"},function (data) {
                   if(data.status == 0){
                       $(obj).parents("tr").remove();
                       layer.msg(data.message,{icon:6,time:1000})

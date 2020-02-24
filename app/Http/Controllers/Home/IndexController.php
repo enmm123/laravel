@@ -14,14 +14,33 @@ class IndexController extends Controller
     //前台首页
     public function index(){
         //获取二级类和相关文章
-        $cate_arts = Article::join('cate','article.cate_id','=','cate.id')->select('article.*','cate.name')->where('article.art_status','=','0')->paginate(3);
+        $uid = session()->get('user')?session()->get('user')->id:null;
+        $cate_arts = Article::join('cate','article.cate_id','=','cate.id')
+            ->leftjoin('collect',function ($join) use ($uid) {
+                $join->on('article.id','=','collect.art_id')->where('collect.uid','=',$uid);
+            })
+            ->select('article.*','cate.name','collect.uid as collect')
+            ->where('article.art_status','=','0')
+            ->orderby('article.id')->paginate(3);
+        $collect = Collect::get();
 //        $cate_arts = Cate::where('pid','<>','0')->with('article')->get();
-        return view('home.index',compact('cate_arts'));
+//        print_r(DB::getQueryLog());
+//        dd($cate_arts->toarray());die();
+        return view('home.index',compact('cate_arts','collect'));
     }
     //文章分类
     public function lists($id){
-        $cate_arts = Article::join('cate','article.cate_id','=','cate.id')->where('cate_id','=',$id)->where('article.art_status','=','0')->select('article.*','cate.name')->paginate(3);
-        return view('home.list',compact('cate_arts'));
+        $uid = session()->get('user')?session()->get('user')->id:null;
+        $cate_arts = Article::join('cate','article.cate_id','=','cate.id')
+            ->leftjoin('collect',function ($join) use ($uid) {
+                $join->on('article.id','=','collect.art_id')->where('collect.uid','=',$uid);
+            })
+            ->select('article.*','cate.name','collect.uid as collect')
+            ->where('article.cate_id','=',$id)->where('article.art_status','=','0')
+            ->orderby('article.id')->paginate(5);
+        $collect = Collect::get();
+//        dd($cate_arts->toarray());die();
+        return view('home.list',compact('cate_arts','collect'));
     }
     //文章收藏
     public function collect(Request $request)

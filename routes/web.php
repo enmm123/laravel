@@ -34,10 +34,13 @@ Route::get('/lists/{id}', 'Home\IndexController@lists');
 Route::get('/view/{id}', 'Home\IndexController@view');
 //文章收藏
 Route::post('collect', 'Home\IndexController@collect');
+Route::post('/lists/collect', 'Home\IndexController@collect');
 //文章详情
 Route::get('/detail/{id}', 'Home\DetailController@index');
 //文章评论
 Route::get('/comment', 'Home\DetailController@comment');
+//留言
+Route::get('/leacot', 'Home\LeacotsController@comment');
 
 
 
@@ -91,5 +94,14 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['isLogin','h
     //上传路由
     Route::post('article/upload','ArticleController@upload');
     Route::resource('article','ArticleController');
+
+    //留言模块
+    //个人留言
+    Route::get('comment/person', 'CommentController@person');
+    //禁用留言
+    Route::get('comment/stop/{id}', 'CommentController@stop');
+    //启用留言
+    Route::get('comment/open/{id}', 'CommentController@open');
+    Route::resource('comment', 'CommentController');
 });
 

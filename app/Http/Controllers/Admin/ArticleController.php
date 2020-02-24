@@ -135,6 +135,7 @@ class ArticleController extends Controller
     {
         //1.根据id获取要修改的记录
         $article = Article::find($id);
+        $imgpath = $article['art_thumb'];
         if(empty($request->input('art_content'))){
             $data=[
                 'status'=>2,
@@ -159,6 +160,9 @@ class ArticleController extends Controller
         $article->art_content = $request->input('art_content');
         $res = $article->save();
         if($res){
+            $path = public_path('');
+            $path = str_replace('\\','/',$path);
+            unlink($path.$imgpath);
             $data=[
                 'status'=>0,
                 'message'=>'修改成功'
@@ -186,7 +190,7 @@ class ArticleController extends Controller
         if($res){
             $path = public_path('');
             $path = str_replace('\\','/',$path);
-            unlink($path.'/'.$imgpath);
+            unlink($path.$imgpath);
             $data=[
                 'status'=>0,
                 'message'=>'删除成功'

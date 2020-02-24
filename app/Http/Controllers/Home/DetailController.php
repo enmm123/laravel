@@ -15,7 +15,10 @@ class DetailController extends Controller
         $article->art_view = $article->art_view + 1;
         $res = $article->save();
 //        dd($article);
-        $comment = Comment::join('user','comments.uid','=','user.id')->join('article','comments.art_id','=','article.id')->where('comments.art_id','=',$id)->select('comments.*','user.username')->paginate(5);
+        $comment = Comment::join('user','comments.uid','=','user.id')
+            ->join('article','comments.art_id','=','article.id')
+            ->where('comments.art_id','=',$id)->where('comments.status','=','0')
+            ->select('comments.*','user.username')->paginate(5);
         return view('home.details',compact('article','comment'));
     }
 
@@ -27,7 +30,7 @@ class DetailController extends Controller
         $time = date('Y-m-d H:i:s',time());
         $res = Comment::create(['uid'=>$uid,'comment'=>$comment,'art_id'=>$art_id,'time'=>$time]);
         if($res){
-            return response()->json(['status'=>0,'msg'=>'评论成功']);
+            return response()->json(['status'=>0,'msg'=>'评论成功，请等待后台审核']);
         }else{
             return response()->json(['status'=>1,'msg'=>'评论失败']);
         }

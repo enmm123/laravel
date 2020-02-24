@@ -34,14 +34,14 @@
             <div class="col-md-4 content-center">
                 <div class="card card-login card-plain">
                     @if (count($errors) > 0)
-                        <div class="alert alert-danger" style="border-radius: 25px;width: 320px;height: 60px;">
+                        <div class="alert alert-danger" style="border-radius: 25px;width: 320px;height: 46px;text-align: center;">
                             <ul style="list-style-type: none;text-align: center;">
                                 @if(is_object($errors))
                                     @foreach ($errors->all() as $error)
-                                        <li style="margin-right: 30px;">{{ $error }}</li>
+                                        <li style="margin-right: 40px;">{{ $error }}</li>
                                     @endforeach
                                 @else
-                                    <li>{{ $errors }}</li>
+                                    <li style="margin-right: 40px;">{{ $errors }}</li>
                                 @endif
                             </ul>
                         </div>

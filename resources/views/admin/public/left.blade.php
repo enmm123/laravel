@@ -93,6 +93,26 @@
             </li>
             <li>
                 <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="留言管理">&#xe747;</i>
+                    <cite>留言管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('文章留言','{{url('admin/comment')}}')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文章留言</cite></a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('个人留言','{{url('admin/comment/person')}}')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>个人留言</cite></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="第三方组件">&#xe6b4;</i>
                     <cite>layui第三方组件</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>

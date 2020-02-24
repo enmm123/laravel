@@ -91,7 +91,7 @@
                     @foreach($cate_arts as $k=>$v)
                     <div class="item">
                         <div class="layui-fluid">
-                            <div class="layui-row">
+                            <div class="layui-row" style="background-color: white;padding: 10px;">
                                 {{--@if(!empty($v->article))--}}
                                 {{--@foreach($v->article as $m=>$n)--}}
                                 <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
@@ -101,22 +101,29 @@
                                     <div class="item-cont" style="height: 270px">
                                         <h3><a href="{{url('/detail/'.$v->id)}}">{{$v->art_title}}</a></h3>
                                         <h5>{{$v->name}}</h5>
-                                        <p>{!!$v->art_description!!}</p>
+                                        <p style="height: 100px;">{!!$v->art_description!!}</p>
                                         @if(empty(session()->get('user')))
-                                        <div class="postlist-meta-collect collect collect-no" style="float:right;cursor: default;color: #8796A3;" title="必须登录才能收藏" artid="{{$v->id}}">
-                                            <i class="fa fa-eye"></i>&nbsp;
-                                            <span>{{$v->art_view}}</span>&nbsp;&nbsp;
+                                        <div class="postlist-meta-collect collect collect-no" style="float:right;cursor: default;color: #8796A3;margin-top: 40px;" title="必须登录才能收藏" artid="{{$v->id}}">
                                             <i class="fa fa-star"></i>&nbsp;
                                             <span>{{$v->art_collect}}</span>&nbsp;
                                         </div>
                                         @else
-                                        <div class="postlist-meta-collect collect collect-no" style="float:right;color: #8796A3;" title="点击收藏" uid="{{session()->get('user')->id}}" artid="{{$v->id}}">
+                                            @if($v->collect)
+                                            <div class="postlist-meta-collect collect collect-yes" style="float:right;color: #8796A3;cursor: pointer;margin-top: 40px;" title="已收藏，点击取消收藏" uid="{{session()->get('user')->id}}" artid="{{$v->id}}">
+                                                <i class="fa fa-star"></i>&nbsp;
+                                                <span>{{$v->art_collect}}</span>&nbsp;
+                                            </div>
+                                            @else
+                                            <div class="postlist-meta-collect collect collect-no" style="float:right;color: #8796A3;cursor: pointer;margin-top: 40px;" title="点击收藏" uid="{{session()->get('user')->id}}" artid="{{$v->id}}">
+                                                <i class="fa fa-star"></i>&nbsp;
+                                                <span>{{$v->art_collect}}</span>&nbsp;
+                                            </div>
+                                            @endif
+                                        @endif
+                                        <div style="float:right;color: #8796A3;margin-top: 40px;">
                                             <i class="fa fa-eye"></i>&nbsp;
                                             <span>{{$v->art_view}}</span>&nbsp;&nbsp;
-                                            <i class="fa fa-star"></i>&nbsp;
-                                            <span>{{$v->art_collect}}</span>&nbsp;
                                         </div>
-                                        @endif
                                         {{--<a href="details.html" class="go-icon"></a>--}}
                                     </div>
                                 </div>
@@ -138,20 +145,25 @@
             var _this = $(this);
             // 文章id
             var artid = Number(_this.attr('artid'));
+            var collectnum = _this.children("span").text();
             if(_this.attr('uid')&&_this.hasClass('collect-no')){
                 var uid = Number(_this.attr('uid'));
+                collectnum = Number(collectnum) + 1;
                 $.ajax({
                     type: 'POST',
                     dataType: 'html',
                     url: 'collect',
                     data: 'action=collect&uid=' + uid + '&artid=' + artid + '&act=add',
                     cache: false,
-                    success: function(){_this.children("span").text("已收藏");
-                        _this.addClass("collect-animate").attr("title","已收藏");
+                    success: function(){_this.children("span").text(collectnum);
+                        _this.addClass("collect-animate").attr("title","已收藏，点击取消收藏");
                         setTimeout(function(){_this.removeClass('collect-animate').removeClass('collect-no').addClass('collect-yes');},500);}});
                 return false;
             }else if(_this.attr('uid')&&_this.hasClass('collect-yes')){
                 var uid = Number(_this.attr('uid'));
+                if(collectnum > 0){
+                    collectnum = Number(collectnum) - 1;
+                }
                 $.ajax({
                     type: 'POST',
                     dataType: 'html',
@@ -159,12 +171,12 @@
                     data: 'action=collect&uid=' + uid + '&artid=' + artid + '&act=remove',
                     cache: false,
                     success: function(){
-                        _this.children("span").text("点击收藏");
+                        _this.children("span").text(collectnum);
                         _this.addClass("collect-animate").attr("title","点击收藏");
                         setTimeout(function(){_this.removeClass('collect-animate').removeClass('remove-collect').removeClass('collect-yes').addClass('collect-no');},500);}});
                 return false;
             }else{
-                return;
+                return true;
             }
         })
     </script>

@@ -7,14 +7,13 @@
         <div class="item-box">
           <div class="review-version">
               <div class="form-box">
-                <div class="article-cont">
-                  <div class="title">
-                    <h3>{{$article->art_title}}</h3>
+                <div class="article-cont" style="background-color: white;padding-left: 20px;padding-right: 20px;">
+                  <div class="title" style="margin-top: 10px;">
+                    <h3 style="padding-top: 30px;">{{$article->art_title}}</h3>
                       <p class="cont-info" style="color: #777;"><span style="margin-right: 30px">作者：{{$article->art_editor}}</span><span style="margin-right: 30px">{{$article->name}}</span><span style="margin-right: 30px">时间：{{$article->time}}</span>浏览量：{{$article->art_view}}</p>
                   </div>
                   <p>{!! $article->art_content !!}</p>
-                  <img src="{{$article->art_thumb}}">
-                  <div class="btn-box">
+                  <div class="btn-box" style="padding-bottom: 30px;">
                     <button class="layui-btn layui-btn-primary">上一篇</button>
                     <button class="layui-btn layui-btn-primary">下一篇</button>
                   </div>
@@ -72,12 +71,16 @@
         var url = "/comment";
         var art_id = '{{$article->id}}';
         var uid = this.name;
-        var username = $('input').attr('value');
         if(content==''){
             alert("评论为空！无法提交！");
             return false;
         }
         $.get(url,{'art_id':art_id,'comment':content,'uid':uid},function (data) {
+            if(data.status==0){
+                alert(data.msg)
+            }else{
+                alert(data.msg)
+            }
             $('#content').val('');
             location.reload();
         })
