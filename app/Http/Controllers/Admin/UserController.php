@@ -98,7 +98,15 @@ class UserController extends Controller
         //执行添加操作
         //1.接收表单提交的数据
         $input = $request->all();
-        //2.进行表单验证
+        //2.判断用户名是否重复
+        $user = User::where('username','=',$input['username'])->get();
+        if($user){
+            $data = [
+                'status'=>1,
+                'message'=>'用户名已存在'
+            ];
+            return $data;
+        }
         //3.添加到数据库
         $username = $input['username'];
         $email = $input['email'];

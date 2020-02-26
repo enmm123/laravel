@@ -57,8 +57,11 @@
                                     <th>ID</th>
                                     <th>用户名</th>
                                     <th>邮箱</th>
+                                    <th>最后登录ip</th>
+                                    <th>最后登录地址</th>
                                     <th>状态</th>
-                                    <th>操作</th></tr>
+                                    <th>操作</th>
+                                  </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($user as $v)
@@ -74,6 +77,8 @@
                                     <td>{{$v->id}}</td>
                                     <td>{{$v->username}}</td>
                                     <td>{{$v->email}}</td>
+                                    <td>{{$v->lastloginip}}</td>
+                                    <td>{{$v->lastlogincity}}</td>
                                     <td class="td-status">
                                         @if($v->status == 0)
                                             <span class="layui-btn layui-btn-normal layui-btn-mini" onclick="member_stop(this,{{$v->id}})" title="点击禁用">已启用</span>

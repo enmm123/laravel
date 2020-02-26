@@ -1,7 +1,7 @@
 <div class="footer-wrap">
     <div class="footer w1000">
         <div class="qrcode">
-            <img src="/home/img/erweima.jpg">
+            <img src="/home/img/wechat.jpg" width="160px;">
         </div>
         <div class="practice-mode">
             <img src="/home/img/down_img.jpg">
@@ -11,5 +11,8 @@
                 <p>邮箱<span class="email">1234567890@qq.com</span></p>
             </div>
         </div>
+    </div>
+    <div style="text-align: center;color: #777777;height: 50px;">
+        PHP开发工程师 郑杰方个人博客 备案号：浙ICP备20005062号
     </div>
 </div>

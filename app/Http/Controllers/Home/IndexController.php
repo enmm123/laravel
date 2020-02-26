@@ -5,6 +5,7 @@ namespace App\Http\Controllers\home;
 use App\Model\Article;
 use App\Model\Cate;
 use App\Model\Collect;
+use App\Model\Userip;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,7 @@ class IndexController extends Controller
 //        $cate_arts = Cate::where('pid','<>','0')->with('article')->get();
 //        print_r(DB::getQueryLog());
 //        dd($cate_arts->toarray());die();
+        //获取访问量和文章总数
         return view('home.index',compact('cate_arts','collect'));
     }
     //文章分类
@@ -88,6 +90,17 @@ class IndexController extends Controller
                 break;
         }
 
+    }
+    //获取访客ip及地址
+    public function userip(Request $request){
+        $userip = $request->input('userip');
+        $usercity = $request->input('usercity');
+        $time = date('Y-m-d H:i:s',time());
+        $info = ['userip'=>$userip,'usercity'=>$usercity,'time'=>$time];
+        $now = Userip::where('userip','=',$userip)->get();
+        if(!$now){
+            Userip::create($info);
+        }
     }
     public function logout(){
         //清空session

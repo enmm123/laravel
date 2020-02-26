@@ -57,7 +57,7 @@
                                         @endif
                                     </td>
                                     <td class="td-manage">
-                                      <a title="编辑"  onclick="xadmin.open('编辑','{{url('admin/article/'.$v->id.'/edit')}}',600,400)" href="javascript:;">
+                                      <a title="编辑"  onclick="xadmin.open('编辑','{{url('admin/article/'.$v->id.'/edit')}}',900,600)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                       </a>
                                       <a title="删除" onclick="member_del(this,{{$v->id}})" href="javascript:;">

@@ -41,6 +41,8 @@ Route::get('/detail/{id}', 'Home\DetailController@index');
 Route::get('/comment', 'Home\DetailController@comment');
 //留言
 Route::get('/leacot', 'Home\LeacotsController@comment');
+//获取访客ip
+Route::get('userip', 'Home\IndexController@userip');
 
 
 

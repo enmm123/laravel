@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title','博客系统')
+@section('title','菠萝笔记')
 @section('main')
     {{--<style>--}}
         {{--*{padding: 0;margin: 0;}  /* 先重置一下html，消除HTML标签默认的内外边距 */--}}
@@ -26,8 +26,8 @@
                 <h4>well-balanced heart</h4>
             </div>
             <div class="amount">
-                <p><span class="text">访问量</span><span class="access">1000</span></p>
-                <p><span class="text">日志</span><span class="daily-record">1000</span></p>
+                {{--<p><span class="text">访问量</span><span class="access">1000</span></p>--}}
+                {{--<p><span class="text">日志</span><span class="daily-record">1000</span></p>--}}
             </div>
         </div>
     </div>
@@ -179,6 +179,11 @@
                 return true;
             }
         })
+    </script>
+    {{--获取访客ip及地址--}}
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script>
+        $.get('userip',{userip:returnCitySN["cip"],usercity:returnCitySN["cname"]});
     </script>
 @endsection
 

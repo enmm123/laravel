@@ -34,7 +34,7 @@
             <div class="col-md-4 content-center">
                 <div class="card card-login card-plain">
                     @if (count($errors) > 0)
-                        <div class="alert alert-danger" style="border-radius: 25px;width: 320px;height: 60px;">
+                        <div class="alert alert-danger" style="border-radius: 25px;width: 320px;height: 46px;text-align: center;">
                             <ul style="list-style-type: none;text-align: center;">
                                 @if(is_object($errors))
                                     @foreach ($errors->all() as $error)
@@ -65,6 +65,13 @@
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons text_caps-small"></i>
                                 </span>
+                                <input type="text" placeholder="请输入邮箱" class="form-control" name="email">
+                                <span style='font-size:13px;color: #f00;line-height: 50px'></span>
+                            </div>
+                            <div class="input-group form-group-no-border input-lg">
+                                <span class="input-group-addon">
+                                    <i class="now-ui-icons text_caps-small"></i>
+                                </span>
                                 <input type="password" placeholder="请输入密码" class="form-control" name="password">
                                 <span style='font-size:13px;color: #f00;line-height: 50px'></span>
                             </div>
@@ -73,13 +80,6 @@
                                     <i class="now-ui-icons text_caps-small"></i>
                                 </span>
                                 <input type="password" placeholder="请再次输入密码" class="form-control" name="repass">
-                                <span style='font-size:13px;color: #f00;line-height: 50px'></span>
-                            </div>
-                            <div class="input-group form-group-no-border input-lg">
-                                <span class="input-group-addon">
-                                    <i class="now-ui-icons text_caps-small"></i>
-                                </span>
-                                <input type="text" placeholder="请输入邮箱" class="form-control" name="email">
                                 <span style='font-size:13px;color: #f00;line-height: 50px'></span>
                             </div>
                         </div>
