@@ -71,18 +71,24 @@ class LoginController extends Controller
 
     public function dozhuce(Request $request){
         $input = $request->except('_token');
+        $username = $input['username'];
         //判断用户名是否重复
-        $user = User::where('username','=',$input['username'])->get();
-        if($user){
+        $hasuser = User::where('username','=',$username)->get();
+        if(empty($hasuser)){
             return redirect('zhuce')->with('errors','用户名已存在');
         }
-        $username = $input['username'];
         $email = $input['email'];
         $password = md5($input['password']);
         $info = ['username'=>$username,'email'=>$email,'password'=>$password];
         $res = User::create($info);
         if($res){
-            return view('home.login');
+            $user = User::where('username',$username)->first();
+            session()->put('user',$user);
+            //保存用户最后登录ip及地址到数据库
+            $lastloginip = self::getip();
+            $lastlogincity = self::getCity();
+            User::where('username','=',$input['username'])->update(['lastloginip'=>$lastloginip,'lastlogincity'=>$lastlogincity]);
+            return redirect('/');
         }else{
             return view('home.zhuce');
         }

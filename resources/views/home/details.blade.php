@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title','博客系统')
+@section('title','菠萝笔记')
 @section('main')
   <div class="content whisper-content leacots-content details-content">
     <div class="cont w1000">

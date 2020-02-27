@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title','博客系统')
+@section('title','菠萝笔记')
 @section('main')
     <div class="album-content w1000"  id="layer-photos-demo" class="layer-photos-demo">
         <div class="img-info">

@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title','博客系统')
+@section('title','菠萝笔记')
 @section('main')
     <div class="content whisper-content leacots-content">
         <div class="cont w1000">
@@ -9,7 +9,7 @@
                         <div class="form-box">
                             <img class="banner-img" src="{{asset('/home/img/liuyan.jpg')}}">
                             <div class="form">
-                                <form class="layui-form" action="">
+                                <form class="layui-form">
                                     <div class="layui-form-item layui-form-text">
                                         <div class="layui-input-block">
                                             <textarea id="content" placeholder="既然来了，就说几句" class="layui-textarea"></textarea>
@@ -68,7 +68,6 @@
                     alert(data.msg)
                 }
                 $('#content').val('');
-                location.reload();
             })
         })
     </script>

@@ -162,7 +162,9 @@ class ArticleController extends Controller
         if($res){
             $path = public_path('');
             $path = str_replace('\\','/',$path);
-            unlink($path.$imgpath);
+            if(!empty($request->input('art_thumb'))) {
+                unlink($path . $imgpath);
+            }
             $data=[
                 'status'=>0,
                 'message'=>'修改成功'

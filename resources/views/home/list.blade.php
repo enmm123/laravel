@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title','博客系统')
+@section('title','菠萝笔记')
 @section('main')
 
     <div class="content" style="background-color: #FAF8FB;">
